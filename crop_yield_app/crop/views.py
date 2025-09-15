@@ -4,7 +4,7 @@ import google.generativeai as genai
 from django.utils.safestring import mark_safe
 import markdown
 # Configure Gemini AI API
-genai.configure(api_key="AIzaSyDI4AVZPwZ06z6X9Dbo31epWOtr-10HmEg")
+genai.configure(api_key="Here Insert Your Gemini AI API KEY")
 
 def predict_crop_yield(request):
     response = None

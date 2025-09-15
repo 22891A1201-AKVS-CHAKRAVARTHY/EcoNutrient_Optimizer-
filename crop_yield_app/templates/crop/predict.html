@@ -1,0 +1,235 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Crop Yield Predictor</title>
+    <style>
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-image: url('https://plus.unsplash.com/premium_photo-1661880897225-e08abbe1d53c?fm=jpg&q=60&w=3000&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MXx8ZmFybSUyMGZpZWxkfGVufDB8fDB8fHww');
+            background-size: cover;
+            background-attachment: fixed;
+            margin: 0;
+            color: #333;
+        }
+
+        .container {
+            display: flex;
+            flex-direction: row;
+            gap: 20px;
+            padding: 20px;
+            align-items: flex-start;
+        }
+
+        .form-container {
+            flex: 1;
+            background-color: rgba(255, 255, 255, 0.9);
+            padding: 50px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            display: flex;
+            gap: 10px; 
+        }
+
+        .form-container h1 {
+            color: #6a0dad;
+            text-align: center;
+        }
+
+        .form-container form {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+            margin: 0; /* Remove any default form margin */
+            padding: 0; /* Ensure no padding above the button */
+        }
+
+        .form-container form label {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .form-container form input {
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+            width: 100%;
+        }
+
+        .form-container form input:focus {
+            border-color: #6a0dad;
+            box-shadow: 0 0 5px rgba(106, 13, 173, 0.5);
+        }
+
+        /* Beautify Dropdown (Autocomplete) */
+        .autocomplete-container {
+            position: relative;
+            width: 100%;
+        }
+
+        .autocomplete-dropdown {
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            max-height: 150px;
+            overflow-y: auto;
+            background-color: #fff;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+        }
+
+        .autocomplete-dropdown div {
+            padding: 10px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .autocomplete-dropdown div:hover {
+            background-color: #f0f0f0;
+        }
+
+        .form-container form button {
+            padding: 12px;
+            background-color: #6a0dad;
+            color: #fff;
+            border: none; /* Ensure no extra border around the button */
+            border-radius: 5px;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+            margin: 0; /* Remove any default margin */
+            display: block; /* Ensures it respects the layout structure */
+            box-shadow: none; /* Prevent any unintended shadow effects */
+        }
+        
+
+        .form-container form button:hover {
+            background-color: #8c37db;
+            transform: translateY(-2px);
+        }
+
+        .output-container {
+            flex: 2;
+            background-color: rgba(255, 255, 255, 0.85);
+            padding: 20px;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            max-height: 88vh;
+            overflow-y: auto;
+        }
+
+        .output-container ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .output-container li {
+            margin-bottom: 20px;
+            padding: 20px;
+            border: 1px solid #ddd;
+            border-radius: 10px;
+            background-color: rgba(255, 255, 255, 0.95);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .output-container li:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+
+        .output-container h3 {
+            margin-top: 0;
+            font-size: 1.2rem;
+            color: #6a0dad;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Input Form -->
+        <div class="form-container">
+            <h1>Crop Yield Predictor</h1>
+            <form method="post">
+                {% csrf_token %}
+                <label for="crop_name">Crop Name</label>
+                <input type="text" id="crop_name" name="crop_name" placeholder="Enter the crop name" required>
+
+                <label for="soil_type">Soil Type</label>
+                <div class="autocomplete-container">
+                    <input type="text" id="soil_type" name="soil_type" placeholder="Enter or select the soil type" required autocomplete="on">
+                    <div class="autocomplete-dropdown" id="soil-type-list"></div>
+                </div>
+
+                <button type="submit">Get Recommendations</button>
+            </form>
+        </div>
+
+        <!-- Output Section -->
+        <div class="output-container">
+            {% if response %}
+                <h2>AI Recommendations</h2>
+                <ul>
+                    {{ response|safe }}
+                </ul>
+            {% else %}
+                <h2>Recommendations will appear here</h2>
+            {% endif %}
+        </div>
+    </div>
+
+    <script>
+        const soilTypes = [
+            "Clay Soil", "Sandy Soil", "Silty Soil", "Loamy Soil",
+            "Peaty Soil", "Chalky Soil", "Black Soil", "Red Soil",
+            "Alluvial Soil", "Arid Soil", "Laterite Soil"
+        ];
+
+        const input = document.getElementById("soil_type");
+        const dropdown = document.getElementById("soil-type-list");
+
+        input.addEventListener("input", () => {
+            const query = input.value.toLowerCase();
+            dropdown.innerHTML = ""; // Clear previous suggestions
+
+            soilTypes
+                .filter(type => type.toLowerCase().includes(query))
+                .forEach(type => {
+                    const div = document.createElement("div");
+                    div.textContent = type;
+                    div.addEventListener("click", () => {
+                        input.value = type; // Set the input value
+                        dropdown.innerHTML = ""; // Clear dropdown
+                    });
+                    dropdown.appendChild(div);
+                });
+        });
+
+        // Close dropdown if clicked outside
+        document.addEventListener("click", (e) => {
+            if (!dropdown.contains(e.target) && e.target !== input) {
+                dropdown.innerHTML = "";
+            }
+        });
+    </script>
+</body>
+</html>

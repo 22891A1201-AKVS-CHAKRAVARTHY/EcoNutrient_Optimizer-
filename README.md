@@ -286,9 +286,6 @@ For support, please open an issue in the GitHub repository or contact the develo
 ## 🙏 Acknowledgments
 
 * Google Generative AI for providing the AI capabilities
-* Django community for the excellent web framework
-* Unsplash for the beautiful farm imagery
-
 - - -
 
-**Happy Farming! 🌱🚜**
+**Happy Code Farming! 🌱🚜**

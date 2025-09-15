@@ -62,7 +62,6 @@ A Django-based web application that provides AI-powered crop yield recommendatio
 
 ``` bash
 git clone https://github.com/22891A1201-AKVS-CHAKRAVARTHY/EcoNutrient_Optimizer-.git
-cd ip2024
 ```
 
 2. **Set up virtual environment**

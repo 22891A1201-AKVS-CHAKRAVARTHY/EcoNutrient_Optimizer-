@@ -1,8 +1,8 @@
-# Crop Yield Predictor 🌾
+# Crop Yield Predictor
 
 A Django-based web application that provides AI-powered crop yield recommendations using Google's Generative AI (Gemini). This application helps farmers and agricultural researchers make informed decisions about crop cultivation by providing personalized recommendations based on crop type and soil conditions.
 
-## 🌟 Features
+## Features
 
 * **AI-Powered Recommendations**: Utilizes Google's Gemini AI model to provide intelligent crop yield suggestions
 * **Interactive Web Interface**: User-friendly form with autocomplete functionality for soil types
@@ -14,7 +14,7 @@ A Django-based web application that provides AI-powered crop yield recommendatio
 * **Responsive Design**: Beautiful, mobile-friendly interface with farm-themed background
 * **Real-time Processing**: Instant AI-generated recommendations
 
-## 🏗️ Technology Stack
+## Technology Stack
 
 * **Backend**: Django 5.1.3 (Python)
 * **AI Integration**: Google Generative AI (Gemini 1.5 Flash)
@@ -23,7 +23,7 @@ A Django-based web application that provides AI-powered crop yield recommendatio
 * **Template Engine**: Django Template Language
 * **Markdown Support**: For formatted AI responses
 
-## 📁 Project Structure
+## Project Structure
 
 ```
 ├── crop_yield_app/
@@ -48,7 +48,7 @@ A Django-based web application that provides AI-powered crop yield recommendatio
 └── requirements.txt               # Global requirements
 ```
 
-## 🚀 Getting Started
+## Getting Started
 
 ### Prerequisites
 
@@ -107,7 +107,7 @@ python manage.py runserver
 7. **Access the application**
 Open your browser and navigate to `http://127.0.0.1:8000/`
 
-## 🔧 Configuration
+## Configuration
 
 ### Environment Variables (Recommended)
 
@@ -147,7 +147,7 @@ DATABASES = {
 }
 ```
 
-## 💡 Usage
+## Usage
 
 1. **Access the Application**: Open your browser and go to the running server URL
 2. **Enter Crop Information**:
@@ -160,7 +160,7 @@ DATABASES = {
     * Companion plants
     * Alternative crops
 
-## 🎨 Features in Detail
+## Features in Detail
 
 ### Supported Soil Types
 
@@ -184,7 +184,7 @@ DATABASES = {
 * **Companion Planting**: Plants that grow well together
 * **Alternative Crops**: Better suited crops for your soil type
 
-## 🛠️ Development
+## Development
 
 ### Adding New Features
 
@@ -210,82 +210,12 @@ black .
 flake8 .
 ```
 
-## 📦 Dependencies
+## Dependencies
 
 * **django**: Web framework
 * **google-generativeai**: Google AI integration
 * **markdown**: Markdown processing for formatted responses
 
-## 🚀 Deployment
-
-### Local Development
-
-``` bash
-python manage.py runserver
-```
-
-### Production Deployment
-
-1. **Set DEBUG to False** in settings.py
-2. **Configure allowed hosts**
-3. **Set up static files**:
-
-``` bash
-python manage.py collectstatic
-```
-
-4. **Use a production WSGI server** like Gunicorn:
-
-``` bash
-pip install gunicorn
-gunicorn crop_yield_app.wsgi:application
-```
-
-## 🔐 Security Considerations
-
-* Never commit API keys to version control
-* Use environment variables for sensitive data
-* Set `DEBUG = False` in production
-* Configure proper `ALLOWED_HOSTS`
-* Use HTTPS in production
-* Regularly update dependencies
-
-## 🤝 Contributing
-
-1. Fork the repository
-2. Create a feature branch (`git checkout -b feature/amazing-feature`)
-3. Commit your changes (`git commit -m 'Add some amazing feature'`)
-4. Push to the branch (`git push origin feature/amazing-feature`)
-5. Open a Pull Request
-
-## 📝 License
+## License
 
 This project is open source and available under the [MIT License](LICENSE).
-
-## 🐛 Known Issues
-
-* API key is currently hardcoded (should use environment variables)
-* No user authentication system
-* Limited error handling for API failures
-* No caching mechanism for AI responses
-
-## 🚧 Future Enhancements
-
-* [ ] User authentication and profiles
-* [ ] Historical recommendations storage
-* [ ] Weather data integration
-* [ ] Mobile app development
-* [ ] Multi-language support
-* [ ] Advanced analytics dashboard
-* [ ] Offline mode capabilities
-
-## 📞 Support
-
-For support, please open an issue in the GitHub repository or contact the development team.
-
-## 🙏 Acknowledgments
-
-* Google Generative AI for providing the AI capabilities
-- - -
-
-**Happy Code Farming! 🌱🚜**
